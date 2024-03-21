@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from django.views import views
+from django.views import View
+from .models import Produto
 
+class Home(View):
+    template_name = "produto/index.html"
 
-class home(View)
-     template_name = "produto/index.html"
+    def get(self, request, *args, **kwargs):
+        produtos = Produto.objects.filter(is_published=True)
 
-    def get(self, request, *args, **kwargs)
-        return render(request,self.template_name)
+        return render(request,self.template_name,context={'produtos':produtos})
